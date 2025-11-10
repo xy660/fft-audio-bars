@@ -24,7 +24,7 @@ namespace WinFormsApp1
 
         
 
-        //ÑÕÉ«Ó³Éäº¯Êı£¬¿ÉÒÔ×Ô¼º¸ÄÆäËûÑÕÉ«
+        //é¢œè‰²æ˜ å°„å‡½æ•°ï¼Œå¯ä»¥è‡ªå·±æ”¹å…¶ä»–é¢œè‰²
         Color MapScaleColor(double scale)
         {
             int r = (int)(scale * 255);
@@ -42,7 +42,7 @@ namespace WinFormsApp1
             float maxValue = bandValues.Length > 0 ? bandValues.Max() : 1;
             if (maxValue <= 0) maxValue = 1;
 
-            // »æÖÆÆµÆ×Öù×Ó
+            // ç»˜åˆ¶é¢‘è°±æŸ±å­
             int barWidth = 10;
             int spacing = 5;
             int startX = 25;
@@ -56,12 +56,12 @@ namespace WinFormsApp1
                     height = (int)(height * scale);
                     int y = 280 - height;
 
-                    // »æÖÆÆµÆ×Öù
-                    brush.Color = MapScaleColor(scale); //½«Ë²Ê±ÉùÑ¹Ó³Éäµ½ÑÕÉ«
+                    // ç»˜åˆ¶é¢‘è°±æŸ±
+                    brush.Color = MapScaleColor(scale); //å°†ç¬æ—¶å£°å‹æ˜ å°„åˆ°é¢œè‰²
                     graph.FillRectangle(brush, x, y, barWidth, height);
                     graph.DrawRectangle(Pens.White, x, y, barWidth, height);
 
-                    // »æÖÆÆµ¶Î±êÇ©
+                    // ç»˜åˆ¶é¢‘æ®µæ ‡ç­¾
                     graph.DrawString($"{i + 1}", new Font("Arial", 8), Brushes.White, x, 285);
                 }
             }
@@ -88,7 +88,6 @@ namespace WinFormsApp1
                 ene.Play();
                 Task.Run(() =>
                 {
-                    double prev = 0;
                     while (true)
                     {
                         double time = 0;
@@ -104,21 +103,8 @@ namespace WinFormsApp1
                         }
                         average /= sampleBlock.Length;
 
-                        if (average - prev > 0.05)
-                        {
-                            Task.Run(() =>
-                            {
-                                this.Invoke(() => this.Text = "¹Äµã");
-                                Thread.Sleep(200);
-                                this.Invoke(() => this.Text = "Music FFT");
-                            });
-                        }
-
-
-                        prev = average;
-
-                        //¼ÆËãÒ»ÏÂÆ½¾ùÉùÑ¹Ëõ·ÅÒ»ÏÂFFTÍ¼£¬ÕâÑù¿´ÆğÀ´Êæ·şÒ»µã
-                        //Ëõ·ÅÁËÒ»ÏÂ£¬ÕâÑùÑÕÉ«±ä»¯¸üÃ÷ÏÔ
+                        //è®¡ç®—ä¸€ä¸‹å¹³å‡å£°å‹ç¼©æ”¾ä¸€ä¸‹FFTå›¾ï¼Œè¿™æ ·çœ‹èµ·æ¥èˆ’æœä¸€ç‚¹
+                        //ç¼©æ”¾äº†ä¸€ä¸‹ï¼Œè¿™æ ·é¢œè‰²å˜åŒ–æ›´æ˜æ˜¾
                         DrawImg(sampleRate, freqMap, graph, Math.Min(1.0, average * 2));
                         this.Invoke(() =>
                         {
@@ -152,10 +138,11 @@ namespace WinFormsApp1
                 }
                 else
                 {
-                    MessageBox.Show("²»Ö§³Ö" + channels + "ÉùµÀ");
+                    MessageBox.Show("ä¸æ”¯æŒ" + channels + "å£°é“");
                 }
             }
         }
         
     }
 }
+
