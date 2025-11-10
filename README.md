@@ -6,7 +6,7 @@
 
 ## 效果图
 
-
+![Image](https://github.com/xy660/fft-audio-bars/blob/main/image.png)
 
 ## 移植
 
@@ -30,5 +30,9 @@ float[] bandValues = MusicFFTView.SplitFreqMap(sampleRate, freqMap, bands);
 //使用bandValues渲染你自己的频谱
 
 ```
+
+## 附加功能
+
+额外写了一个基于左右声道抵消的人声消除功能，代码比较简单可以自取
 
 ---
